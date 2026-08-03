@@ -132,10 +132,11 @@ def scan_text(text: str) -> list[Finding]:
         )
 
     for match in re.finditer(
-        r"(?i)\b(?:name|contact person|employee name|client name|volunteer name)\s*[:=-]\s*"
-        r"([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})",
-        text,
-    ):
+    r"(?m)^(?i:employee name|client name|volunteer name|contact person|name)"
+    r"[ \t]*[:=-][ \t]*"
+    r"([A-Z][a-z]+(?:[ \t]+[A-Z][a-z]+){1,2})[ \t]*$",
+    text,
+):
         add_finding(
             findings,
             text,
